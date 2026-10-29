@@ -1,0 +1,78 @@
+@startuml
+
+class Book {
+    -id : int
+    -title : String
+    -author : String
+}
+
+class Reader {
+    -id : int
+    -name : String
+}
+
+class BookCopy {
+    -id : int
+    +isAvailable() : boolean
+    +borrow(reader : Reader) : void
+}
+
+BookCopy "0..*" --> "1" Book : book
+BookCopy "0..*" --> "0..1" Reader : borrower
+
+class Main
+
+class Library {
+    -nextBookId : int
+    -nextCopyId : int
+    -nextReaderId : int
+    +Library(repository : LibraryRepository)
+    +addBook(title : String, author : String) : Book
+    +addReader(name : String) : Reader
+    +addCopy(bookId : int) : BookCopy
+    +borrowCopy(copyId : int, readerId : int) : void
+}
+
+interface ReaderRepository {
+
+
+    +getReaders() : List<Reader>
+
+
+    +saveReader(reader : Reader) : void
+}
+
+interface BookRepository {
+    +getBook() : List<Book>
+    +saveBook(book : Book) : void
+}
+
+interface BookCopyRepository {
+    +getBookCopy() : List<BookCopy>
+    +saveBookCopy(copy : BookCopy) : void
+}
+
+class InMemoryReaderRepository
+class InMemoryBookRepository
+class InMemoryBookCopyRepository
+
+Main ..> Library : uses
+
+Main ..> InMemoryReaderRepository : creates
+Main ..> InMemoryBookRepository : creates
+Main ..> InMemoryBookCopyRepository : creates
+
+Library --> "1" ReaderRepository : repository
+Library --> "1" BookCopyRepository : repository
+Library --> "1" BookRepository : repository
+Library ..> BookCopy : uses
+Library ..> Book : uses
+Library ..> Reader : uses
+InMemoryLibraryRepository ..|> LibraryRepository
+
+InMemoryBookRepository --> "0..*" Book : books
+InMemoryBookCopyRepository --> "0..*" BookCopy : copies
+InMemoryReaderRepository --> "0..*" Reader : readers
+
+
+@enduml

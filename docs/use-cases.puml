@@ -1,0 +1,24 @@
+@startuml
+left to right direction
+
+actor Librarian
+
+rectangle "Library system" {
+    usecase "Add book" as AddBook
+    usecase "Add copy" as AddCopy
+    usecase "Add reader" as AddReader
+    usecase "Borrow copy" as BorrowCopy
+    usecase "List books" as ListBooks
+    usecase "List copies" as ListCopies
+    usecase "List readers" as ListReaders
+}
+
+Librarian --> AddBook
+Librarian --> AddCopy
+Librarian --> AddReader
+Librarian --> BorrowCopy
+Librarian --> ListBooks
+Librarian --> ListCopies
+Librarian --> ListReaders
+
+@enduml

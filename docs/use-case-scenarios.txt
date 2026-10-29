@@ -1,0 +1,132 @@
+Use case: Borrow copy
+
+Actor: Librarian
+
+Preconditions:
+The reader is registered.
+The copy is registered and available.
+
+Main flow:
+
+1. The librarian selects "Borrow copy".
+2. The system displays the copies.
+3. The librarian enters a copy ID.
+4. The system displays the readers.
+5. The librarian enters a reader ID.
+6. The system finds the copy and the reader.
+7. The system assigns the reader as the copy's borrower.
+8. The system displays "Copy borrowed.".
+
+Alternative flows:
+Invalid ID format: the system displays an error and returns to the menu.
+Copy or reader not found: the system displays an error and returns to the menu.
+Copy already borrowed: the system displays an error and returns to the menu.
+
+Postconditions on success:
+The copy is unavailable.
+The selected reader is assigned as its borrower.
+
+Postconditions on failure:
+Existing borrowing assignments remain unchanged.
+
+
+
+
+
+Use case: Add copy
+
+Actor: Librarian
+
+Preconditions:
+The book is registered.
+
+Main flow:
+
+1. The librarian selects "Add copy".
+2. The system displays the books.
+3. The librarian enters a book ID.
+4. The system finds the book.
+5. The system creates an available copy with an automatically assigned ID.
+6. The system saves the copy.
+7. The system displays the new copy's ID.
+
+Alternative flows:
+Invalid ID format: the system displays an error and returns to the menu.
+Book not found: the system displays an error and returns to the menu. The librarian can select "Add book" before trying again.
+
+Postconditions on success:
+The new copy is registered and available.
+The copy references the selected book.
+
+Postconditions on failure:
+No copy is added.
+
+
+
+
+Use case: List books
+
+Actor: Librarian
+
+Preconditions:
+None.
+
+Main flow:
+
+1. The librarian selects "List books".
+2. The system displays the ID, title and author of each registered book.
+3. The system returns to the menu.
+
+Alternative flow:
+If no books are registered, no book entries are displayed.
+
+Postconditions:
+Stored data remains unchanged.
+
+
+
+
+
+
+Use case: List readers
+
+Actor: Librarian
+
+Preconditions:
+None.
+
+Main flow:
+
+1. The librarian selects "List readers".
+2. The system displays each reader's ID, name and borrowed book titles.
+3. The system returns to the menu.
+
+Alternative flows:
+If no readers are registered, no reader entries are displayed.
+If a reader has no borrowed copies, no book titles are displayed for that reader.
+
+Postconditions:
+Stored data remains unchanged.
+
+
+
+
+Use case: List copies
+
+Actor: Librarian
+
+Preconditions:
+None.
+
+Main flow:
+
+1. The librarian selects "List copies".
+2. The system displays each copy's ID and book title.
+3. For each copy, the system displays its availability or the borrower's name.
+4. The system returns to the menu.
+
+Alternative flow:
+If no copies are registered, no copy entries are displayed.
+
+Postconditions:
+Stored data remains unchanged.

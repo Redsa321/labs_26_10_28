@@ -1,0 +1,17 @@
+Database extension
+
+The Library class depends on the LibraryRepository interface. The current InMemoryLibraryRepository implementation stores data in lists.
+
+To introduce database storage:
+
+1. Create a JdbcLibraryRepository class implementing LibraryRepository.
+2. Implement its methods using JDBC and a database connection.
+3. Store books, readers and copies in separate tables. Each copy references a book and optionally a borrower through foreign keys.
+4. Replace in-memory ID counters in Library with database-generated identifiers. Adjust the repository interface so that saved objects receive their generated IDs.
+5. Persist borrowing explicitly. Currently, borrowCopy changes a BookCopy object in memory. Add a repository operation that saves the borrower assignment.
+6. Execute borrowing atomically, allowing the assignment only if the copy is still available. This prevents two users from borrowing the same copy concurrently.
+7. Inject JdbcLibraryRepository into Library instead of InMemoryLibraryRepository.
+
+The console interface and domain borrowing rules can remain unchanged. Library needs adjustments for ID generation and explicit persistence.
+
+The repository is an example of GRASP Pure Fabrication. Depending on its interface rather than a concrete storage implementation follows Dependency Inversion.
